@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>لوحة تحكم UBUS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../logo/logo.png" />
+
+    <!-- Daterangepicker css -->
+    <link
+      rel="stylesheet"
+      href="../../../backend/vendor/daterangepicker/daterangepicker.css"
+    />
+
+    <!-- Vector Map css -->
+    <link
+      rel="stylesheet"
+      href="../../../backend/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    />
+
+    <link
+      href="../../../backend/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Theme Config Js -->
+    <script src="../../../backend/js/config.js"></script>
+
+    <!-- App css -->
+    <link
+      href="../../../backend/css/app.min.css"
+      rel="stylesheet"
+      type="text/css"
+      id="app-style"
+    />
+
+    <!-- Icons css -->
+    <link
+      href="../../../backend/css/icons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+
+      * {
+        font-family: "Cairo", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "slnt" 0;
+      }
+    </style>
+    <style>
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 20px;
+        background-color: red;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        align-items: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        transition: 0.3s ease-in-out;
+      }
+
+      .my-float {
+        margin-top: 16px;
+      }
+
+      .float:hover {
+        transform: scale(1.1);
+        color: white;
+      }
+    </style>
+
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- Begin page -->
+    <div class="wrapper">
+      <!-- ========== Topbar Start ========== -->
+      <div class="navbar-custom">
+        <div class="topbar container-fluid">
+          <div class="d-flex align-items-center gap-1">
+            <!-- Topbar Brand Logo -->
+            <div class="logo-topbar">
+              <!-- Logo light -->
+              <a href="/" class="logo-light">
+                <span class="logo-lg">
+                  <img src="../../../logo/logo.png" alt="logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="../../../logo/logo.png" alt="small logo" />
+                </span>
+              </a>
+
+              <!-- Logo Dark -->
+              <a href="/" class="logo-dark">
+                <span class="logo-lg">
+                  <img src="../../../logo/logo.png" alt="dark logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="../../../logo/logo.png" alt="small logo" />
+                </span>
+              </a>
+            </div>
+
+            <!-- Sidebar Menu Toggle Button -->
+            <button class="button-toggle-menu">
+              <i class="ri-menu-line"></i>
+            </button>
+
+            <!-- Horizontal Menu Toggle Button -->
+            <button
+              class="navbar-toggle"
+              data-bs-toggle="collapse"
+              data-bs-target="#topnav-menu-content"
+            >
+              <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </button>
+          </div>
+
+          <ul class="topbar-menu d-flex align-items-center gap-3">
+            <li class="d-none d-sm-inline-block">
+              <div class="nav-link" id="light-dark-mode">
+                <i class="ri-moon-line fs-22"></i>
+              </div>
+            </li>
+
+            <li class="d-none d-sm-inline-block" onclick="logoutBtn()">
+              <div class="nav-link">
+                <i class="ri-login-box-line fs-22 text-danger"></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== Topbar End ========== -->
+
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="leftside-menu">
+        <!-- Brand Logo Light -->
+        <a href="../frontend/index.html" class="logo logo-light">
+          <span class="logo-lg">
+            <img
+              style="width: 100px; height: 100px"
+              src="../../../logo/logo.png"
+              alt="logo"
+            />
+          </span>
+        </a>
+
+        <!-- Brand Logo Dark -->
+        <a href="../frontend/index.html" class="logo logo-dark">
+          <span class="logo-lg">
+            <img
+              style="width: 100px; height: 100px"
+              src="../../../logo/logo.png"
+              alt="dark logo"
+            />
+          </span>
+        </a>
+
+        <!-- Sidebar -left -->
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+          <!--- Sidemenu -->
+          <ul class="side-nav">
+            <li class="side-nav-title">رئيسي</li>
+
+
+            <li class="side-nav-item">
+              <a href="../backend/student-map.html" class="side-nav-link">
+                <i class="ri-map-pin-line"></i>
+                <span> الخريطة </span>
+              </a>
+            </li>
+
+            
+
+
+            <li class="side-nav-item">
+              <a href="../backend/student-bus-info.html" class="side-nav-link">
+                <i class="ri-information-line"></i>
+                <span> معلومات عن الحافلات </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="../backend/student-time-bus.html" class="side-nav-link">
+                <i class="ri-time-line"></i>
+                <span> معلومات عن وقت الحافلات </span>
+              </a>
+            </li>
+
+            
+            <li class="side-nav-item">
+              <a href="../backend/student.html" class="side-nav-link">
+                <i class="ri-dashboard-3-line"></i>
+                <span class="badge bg-success float-end">9+</span>
+                <span> لوحة القيادة </span>
+              </a>
+            </li>
+          
+
+
+         
+          </ul>
+          <!--- End Sidemenu -->
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <!-- ========== Left Sidebar End ========== -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <div>
+          <div
+            id="standard-modal"
+            class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="standard-modalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                  <h4 class="modal-title" id="standard-modalLabel">
+                    أرقام الاستغاثة
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963998563061"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 1: 0998563061
+                      </a>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963951333605"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 2: 0951333605
+                      </a>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963939959118"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 3: 0939959118
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                  >
+                    اغلاق
+                  </button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
+          <a
+            href="#"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#standard-modal"
+            class="float"
+            target="_blank"
+          >
+            <span style="font-size: 15px; font-weight: bold">SOS</span>
+          </a>
+        </div>
+
+        <div class="content">
+          <!-- Start Content-->
+          <div class="container-fluid">
+            
+
+
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="card rounded-4 shadow-lg">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group mt-3">
+                                        <label for="citySelect">اختر المكان </label>
+                                        <select class="form-control" id="citySelect" onchange="updateMap()">
+                                            <option value="" disabled selected>اختر المكان</option>
+                                            <option value="33.5111,36.3064">مزة</option>
+                                            <option value="33.5149,36.3190">باب شرقي</option>
+                                            <option value="33.5280,36.2966">مهاجرين</option>
+                                            <option value="33.5212,36.2785">برامكة</option>
+                                            <option value="33.5033,36.2765">كفر سوسة</option>
+                                            <option value="33.5247,36.3096">أبو رمانة</option>
+                                            <option value="33.5277,36.3028">مالكي</option>
+                                            <option value="33.5102,36.2686">القدم</option>
+                                            <option value="33.5136,36.3184">قابون</option>
+                                            <option value="33.5101,36.3175">جوبر</option>
+                                            <option value="33.4876,36.2733">ميدان</option>
+                                            <option value="33.5222,36.2781">صالحية</option>
+                                            <option value="33.5044,36.3001">ركن الدين</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div id="map"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+          </div>
+          <!-- container -->
+        </div>
+        <!-- content -->
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <script src="../../../backend/js/vendor.min.js"></script>
+
+    <!-- Datatables js -->
+    <script src="../../../backend/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-fixedcolumns-bs5/js/fixedColumns.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Datatable Demo Aapp js -->
+    <script src="../../../backend/js/pages/datatable.init.js"></script>
+
+    <!-- Daterangepicker js -->
+    <script src="../../../backend/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../../../backend/vendor/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Apex Charts js -->
+    <script src="../../../backend/vendor/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector Map js -->
+    <script src="../../../backend/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../../../backend/vendor/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!-- Dashboard App js -->
+    <script src="../../../backend/js/pages/dashboard.js"></script>
+
+    <!-- App js -->
+    <script src="../../../backend/js/app.min.js"></script>
+
+    <script>
+      function logoutBtn() {
+        window.location.href = "../frontend/index.html";
+      }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPeXz77l57GLHDJPs93VKY5I7_Ry9GP-U"></script>
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            const damascus = {
+                lat: 33.5138
+                , lng: 36.2765
+            };
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: damascus
+                , zoom: 12
+            });
+
+            marker = new google.maps.Marker({
+                position: damascus
+                , map: map
+            });
+        }
+
+        function updateMap() {
+            const select = document.getElementById('citySelect');
+            const coordinates = select.value.split(',');
+            const lat = parseFloat(coordinates[0]);
+            const lng = parseFloat(coordinates[1]);
+            const areaLocation = {
+                lat: lat
+                , lng: lng
+            };
+
+            map.setCenter(areaLocation);
+            map.setZoom(14);
+
+            marker.setPosition(areaLocation);
+        }
+
+        window.onload = initMap;
+
+    </script>
+  </body>
+</html>

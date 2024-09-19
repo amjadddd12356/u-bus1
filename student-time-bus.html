@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>لوحة تحكم UBUS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../logo/logo.png" />
+
+    <!-- Daterangepicker css -->
+    <link
+      rel="stylesheet"
+      href="../../../backend/vendor/daterangepicker/daterangepicker.css"
+    />
+
+    <!-- Vector Map css -->
+    <link
+      rel="stylesheet"
+      href="../../../backend/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    />
+
+    <link
+      href="../../../backend/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../../backend/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Theme Config Js -->
+    <script src="../../../backend/js/config.js"></script>
+
+    <!-- App css -->
+    <link
+      href="../../../backend/css/app.min.css"
+      rel="stylesheet"
+      type="text/css"
+      id="app-style"
+    />
+
+    <!-- Icons css -->
+    <link
+      href="../../../backend/css/icons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+
+      * {
+        font-family: "Cairo", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "slnt" 0;
+      }
+    </style>
+    <style>
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 20px;
+        background-color: red;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        align-items: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        transition: 0.3s ease-in-out;
+      }
+
+      .my-float {
+        margin-top: 16px;
+      }
+
+      .float:hover {
+        transform: scale(1.1);
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Begin page -->
+    <div class="wrapper">
+      <!-- ========== Topbar Start ========== -->
+      <div class="navbar-custom">
+        <div class="topbar container-fluid">
+          <div class="d-flex align-items-center gap-1">
+            <!-- Topbar Brand Logo -->
+            <div class="logo-topbar">
+              <!-- Logo light -->
+              <a href="/" class="logo-light">
+                <span class="logo-lg">
+                  <img src="../../../logo/logo.png" alt="logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="../../../logo/logo.png" alt="small logo" />
+                </span>
+              </a>
+
+              <!-- Logo Dark -->
+              <a href="/" class="logo-dark">
+                <span class="logo-lg">
+                  <img src="../../../logo/logo.png" alt="dark logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="../../../logo/logo.png" alt="small logo" />
+                </span>
+              </a>
+            </div>
+
+            <!-- Sidebar Menu Toggle Button -->
+            <button class="button-toggle-menu">
+              <i class="ri-menu-line"></i>
+            </button>
+
+            <!-- Horizontal Menu Toggle Button -->
+            <button
+              class="navbar-toggle"
+              data-bs-toggle="collapse"
+              data-bs-target="#topnav-menu-content"
+            >
+              <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </button>
+          </div>
+
+          <ul class="topbar-menu d-flex align-items-center gap-3">
+            <li class="d-none d-sm-inline-block">
+              <div class="nav-link" id="light-dark-mode">
+                <i class="ri-moon-line fs-22"></i>
+              </div>
+            </li>
+
+            <li class="d-none d-sm-inline-block" onclick="logoutBtn()">
+              <div class="nav-link">
+                <i class="ri-login-box-line fs-22 text-danger"></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== Topbar End ========== -->
+
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="leftside-menu">
+        <!-- Brand Logo Light -->
+        <a href="../frontend/index.html" class="logo logo-light">
+          <span class="logo-lg">
+            <img
+              style="width: 100px; height: 100px"
+              src="../../../logo/logo.png"
+              alt="logo"
+            />
+          </span>
+        </a>
+
+        <!-- Brand Logo Dark -->
+        <a href="../frontend/index.html" class="logo logo-dark">
+          <span class="logo-lg">
+            <img
+              style="width: 100px; height: 100px"
+              src="../../../logo/logo.png"
+              alt="dark logo"
+            />
+          </span>
+        </a>
+
+        <!-- Sidebar -left -->
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+          <!--- Sidemenu -->
+          <ul class="side-nav">
+            <li class="side-nav-title">رئيسي</li>
+
+
+            <li class="side-nav-item">
+              <a href="../backend/student-map.html" class="side-nav-link">
+                <i class="ri-map-pin-line"></i>
+                <span> الخريطة </span>
+              </a>
+            </li>
+
+            
+
+
+            <li class="side-nav-item">
+              <a href="../backend/student-bus-info.html" class="side-nav-link">
+                <i class="ri-information-line"></i>
+                <span> معلومات عن الحافلات </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="../backend/student-time-bus.html" class="side-nav-link">
+                <i class="ri-time-line"></i>
+                <span> معلومات عن وقت الحافلات </span>
+              </a>
+            </li>
+
+            
+            <li class="side-nav-item">
+              <a href="../backend/student.html" class="side-nav-link">
+                <i class="ri-dashboard-3-line"></i>
+                <span class="badge bg-success float-end">9+</span>
+                <span> لوحة القيادة </span>
+              </a>
+            </li>
+          
+
+
+         
+          </ul>
+          <!--- End Sidemenu -->
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <!-- ========== Left Sidebar End ========== -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <div>
+          <div
+            id="standard-modal"
+            class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="standard-modalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                  <h4 class="modal-title" id="standard-modalLabel">
+                    أرقام الاستغاثة
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963998563061"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 1: 0998563061
+                      </a>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963951333605"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 2: 0951333605
+                      </a>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <a
+                        href="tel:+963939959118"
+                        class="link-danger text-decoration-underline link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      >
+                      المدير 3: 0939959118
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                  >
+                    اغلاق
+                  </button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
+          <a
+            href="#"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#standard-modal"
+            class="float"
+            target="_blank"
+          >
+            <span style="font-size: 15px; font-weight: bold">SOS</span>
+          </a>
+        </div>
+
+        <div class="content">
+          <!-- Start Content-->
+          <div class="container-fluid">
+            
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="form-group row mb-3">
+                        <div class="col">
+                            <label class="form-label" for="region">اختر المكان</label>
+                            <select id="regionSelect" onchange="updateTable()" class="form-control form-select">
+                                <option value="العدوي">العدوي</option>
+                                <option value="التل">التل</option>
+                                <option value="جديدة عرطوز">جديدة عرطوز</option>
+                                <option value="جرمانا">جرمانا</option>
+                                <option value="جسر الأبيض">جسر الأبيض</option>
+                                <option value="جمرايا">جمرايا</option>
+                                <option value="حاميش">حاميش</option>
+                                <option value="زاهرة">زاهرة</option>
+                                <option value="شارع بغداد">شارع بغداد</option>
+                                <option value="ضاحيةالأسد">ضاحيةالأسد</option>
+                                <option value="قدسيا">قدسيا</option>
+                                <option value="قرى الأسد">قرى الأسد</option>
+                                <option value="مالكي">مالكي</option>
+                                <option value="مزة شيخ سعد">مزة شيخ سعد</option>
+                                <option value="مساكن برزة">مساكن برزة</option>
+                                <option value="مشروع دمر">مشروع دمر</option>
+                                <option value="معضمية">معضمية</option>
+                                <option value="مهاجرين">مهاجرين</option>
+                                <option value="ميسات">ميسات</option>
+                                <option value="مزة">مزة</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <div class="card-body">
+                            <table border="1" class="table table-bordered table-hover text-center mb-0" id="routeTable">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" id="regionName">العدوي</th>
+                                    </tr>
+                                    <tr id="secondTripHeader">
+                                        <th colspan="2">رحلة ثانية</th>
+                                        <th colspan="2">رحلة أولى</th>
+                                    </tr>
+                                    <tr>
+                                        <th id="secondTripTimeHeader">الوقت</th>
+                                        <th id="secondTripPlaceHeader">المكان</th>
+                                        <th>الوقت</th>
+                                        <th>المكان</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+          <!-- container -->
+        </div>
+        <!-- content -->
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <script src="../../../backend/js/vendor.min.js"></script>
+
+    <!-- Datatables js -->
+    <script src="../../../backend/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-fixedcolumns-bs5/js/fixedColumns.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../../../backend/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+    <!-- Datatable Demo Aapp js -->
+    <script src="../../../backend/js/pages/datatable.init.js"></script>
+
+    <!-- Daterangepicker js -->
+    <script src="../../../backend/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../../../backend/vendor/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Apex Charts js -->
+    <script src="../../../backend/vendor/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector Map js -->
+    <script src="../../../backend/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../../../backend/vendor/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!-- Dashboard App js -->
+    <script src="../../../backend/js/pages/dashboard.js"></script>
+
+    <!-- App js -->
+    <script src="../../../backend/js/app.min.js"></script>
+
+    <script>
+      function logoutBtn() {
+        window.location.href = "../frontend/index.html";
+      }
+    </script>
+
+    <script>
+        const routesData = {
+            "العدوي": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "مفترق وزارة النفط"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "مفترق وزارة النفط"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "ساحة العباسيين"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "ساحة العباسيين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "الزبلطاني"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "الزبلطاني"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "باب توما"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "باب توما"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "باب شرقي"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "باب شرقي"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "جامع بلال"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "جامع بلال"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "التل": [{
+                    firstTrip: {
+                        time: "6:40"
+                        , place: "موقف الوادي ساحة البانوراما"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "6:50"
+                        , place: "دوار معربا"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "6:55"
+                        , place: "مفرق برزة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "جرمانا": [{
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "مول جرمانا"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "مكتب فواز للنقل قبل ساحة الرئيس"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "ساحة السيوف"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "جديدة عرطوز": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "موقف الفرن "
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "موقف الفرن "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "مفرق الجديدة صحنايا"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "مفرق الجديدة صحنايا"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "صحنايا البريد"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "صحنايا البريد"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: " موقف الكازية"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: " موقف الكازية"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: " ساحة الارزوني "
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: " ساحة الارزوني "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: " موقف الطيارة "
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: " موقف الطيارة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "الجامع"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "الجامع"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "جسر الأبيض": [{
+                    firstTrip: {
+                        time: "7:05"
+                        , place: "الركن الفرنسي "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "جمرايا": [{
+                    firstTrip: {
+                        time: "6:45"
+                        , place: "جمرايا الحاجز"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "6:50"
+                        , place: "حاجز الرمال"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }, {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "حاميش": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "اشارة حاميش "
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "اشارة حاميش "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "مول قاسيون "
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "مول قاسيون "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "ابن النفيس"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "ابن النفيس"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "جسر المشاة مدخل الهجرة "
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "جسر المشاة مدخل الهجرة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "مشفى الحياة "
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "مشفى الحياة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "اتحاد الفلاحين"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "اتحاد الفلاحين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "زاهرة": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "زاهر جديدة جسر المشاة "
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "زاهر جديدة جسر المشاة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "زاهرة جديدة الفرن الآلي "
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "زاهرة جديدة الفرن الآلي "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "مقابل جامع زين العابدين"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "مقابل جامع زين العابدين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "جسر المشاة مدخل الهجرة "
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "جسر المشاة مدخل الهجرة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "جامع الحسن "
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "جامع الحسن "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "شارع بغداد": [{
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "مقبرة الدحداح "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "ساحة التحرير "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "ضاحيةالأسد": [{
+                    firstTrip: {
+                        time: "7:00"
+                        , place: " دوار الدفاع الوطني  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "قدسيا": [{
+                    firstTrip: {
+                        time: "6:45"
+                        , place: " موقف الناحية  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "قرى الأسد": [{
+                    secondTrip: {
+                        time: "8:50"
+                        , place: "موقف الكازية "
+                    }
+                    , firstTrip: {
+                        time: "6:50"
+                        , place: "موقف الكازية "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "8:55"
+                        , place: "الصبورة"
+                    }
+                    , firstTrip: {
+                        time: "6:55"
+                        , place: "الصبورة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: " الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: " الجامعة"
+                    }
+                }
+            ]
+            , "مالكي": [{
+                    secondTrip: {
+                        time: "8:50"
+                        , place: "ساحة الروضة "
+                    }
+                    , firstTrip: {
+                        time: "6:50"
+                        , place: "ساحة الروضة "
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "8:55"
+                        , place: "ساحة عدنان المالكي"
+                    }
+                    , firstTrip: {
+                        time: "6:55"
+                        , place: "ساحة عدنان المالكي"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: " الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: " الجامعة"
+                    }
+                }
+            ]
+            , "مزة شيخ سعد": [{
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "جامع الشيخ سعد  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "بناء 14  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:05"
+                        , place: "اشارة الجلاء"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:05"
+                        , place: "مفرق تالة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:05"
+                        , place: "اتصالات"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "مساكن برزة": [{
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "مفرق مطعم الايمان  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "امية كلاس  "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:00"
+                        , place: "مقابل جامع الحسنين"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "مشروع دمر": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "ضاحية الزهور"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "ضاحية الزهور"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "ضاحية قدسيا مقابل جامع الاحمد"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "ضاحية قدسيا مقابل جامع الاحمد"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "مفرق جزيرة 16"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "مفرق جزيرة 16"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "دوار الكنيسة"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "دوار الكنيسة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "جزيرة 10-7"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "جزيرة 10-7"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "القوس"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "القوس"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "معضمية": [{
+                    firstTrip: {
+                        time: "7:05"
+                        , place: "دوار العلم "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة "
+                    }
+                }
+                , {
+                    firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "مهاجرين": [{
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "حديقة النيربين"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "حديقة النيربين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "الأمويين"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "الأمويين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "ميسات": [{
+                    secondTrip: {
+                        time: "-"
+                        , place: "دوار ساحة شمدين"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "دوار ساحة شمدين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "هشام سنان"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "هشام سنان"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "ساحة الميسات"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "ساحة الميسات"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "الشهبندر"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "الشهبندر"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "شارع 29 ايار"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "شارع 29 ايار"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:15"
+                        , place: "اتحاد الفلاحين"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "اتحاد الفلاحين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+            , "مزة": [{
+                    secondTrip: {
+                        time: "-"
+                        , place: "فندق الجلاء"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "فندق الجلاء"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:00"
+                        , place: "دار البعث"
+                    }
+                    , firstTrip: {
+                        time: "7:00"
+                        , place: "دار البعث"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "الاتصالات"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "الاتصالات"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:05"
+                        , place: "دار المعلمين"
+                    }
+                    , firstTrip: {
+                        time: "7:05"
+                        , place: "دار المعلمين"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:10"
+                        , place: "بنك البركة"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "بنك البركة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:15"
+                        , place: "شام سنتر"
+                    }
+                    , firstTrip: {
+                        time: "7:10"
+                        , place: "شام سنتر"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "9:20"
+                        , place: "نهر عيشة"
+                    }
+                    , firstTrip: {
+                        time: "7:20"
+                        , place: "نهر عيشة"
+                    }
+                }
+                , {
+                    secondTrip: {
+                        time: "10:15"
+                        , place: "الجامعة"
+                    }
+                    , firstTrip: {
+                        time: "8:10"
+                        , place: "الجامعة"
+                    }
+                }
+            ]
+        };
+    
+        function updateTable() {
+            const regionSelect = document.getElementById("regionSelect");
+            const selectedRegion = regionSelect.value;
+            const tableBody = document.querySelector("#routeTable tbody");
+            const regionName = document.getElementById("regionName");
+            regionName.textContent = selectedRegion;
+            tableBody.innerHTML = "";
+            const routes = routesData[selectedRegion];
+            const hasSecondTrip = routes.some(route => route.secondTrip);
+            const secondTripHeader = document.getElementById("secondTripHeader");
+            const secondTripTimeHeader = document.getElementById("secondTripTimeHeader");
+            const secondTripPlaceHeader = document.getElementById("secondTripPlaceHeader");
+            if (!hasSecondTrip) {
+                secondTripHeader.classList.add("hidden");
+                secondTripTimeHeader.classList.add("hidden");
+                secondTripPlaceHeader.classList.add("hidden");
+            } else {
+                secondTripHeader.classList.remove("hidden");
+                secondTripTimeHeader.classList.remove("hidden");
+                secondTripPlaceHeader.classList.remove("hidden");
+            }
+            routes.forEach(route => {
+                const secondTripTime = route.secondTrip ? route.secondTrip.time : "-";
+                const secondTripPlace = route.secondTrip ? route.secondTrip.place : "-";
+                const row = `
+                                <tr>
+                                    <td class="${route.secondTrip ? '' : 'hidden'}">${secondTripTime}</td>
+                                    <td class="${route.secondTrip ? '' : 'hidden'}">${secondTripPlace}</td>
+                                    <td>${route.firstTrip.time}</td>
+                                    <td>${route.firstTrip.place}</td>
+                                </tr>
+            `;
+                tableBody.innerHTML += row;
+            });
+        }
+        window.onload = updateTable;
+    
+    </script>
+  </body>
+</html>
